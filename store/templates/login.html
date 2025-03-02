@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="container" style="padding-top:100px;">
+    <div class="p-4 m-4">
+        <div class="col-lg-4 mt-4 border mb-4 mx-auto rounded pt-4">
+            <div class="text-center col">
+
+                <img
+                src="https://stttekstil.ac.id/wp-content/uploads/2022/03/people.png" alt=""
+                class="" style="height: 150px;">
+            <!-- <hr> -->
+            <div style="font-size:15px">Login Here</div>
+            <hr>
+            </div>
+            <h3 hidden class="alert alert-light border mt-4 mb-4 rounded">Login Here</h3>
+            <form action="/login/" method="POST">
+
+                {% csrf_token %}
+
+                {% if error%}
+                <div class="alert alert-danger" role="alert">
+                    {{error}}
+                </div>
+                {% endif %}
+                <!-- email -->
+                <div class="form-group">
+                    <label for="" style="font-size:14px">Email</label>
+                    <input required type="email" name="email" id=""  style="height:35px"
+                    value="{{values.email}}"
+                    class=" form-control-sm form-control" placeholder="example@gmail.com">
+                </div>
+
+
+                <!-- password -->
+                <div class="form-group">
+                    <label for=""style="font-size:14px">Password</label>
+                    <input type="password" style="height:35px"
+                    name="password"
+                    id=""
+                     class="form-control form-control-sm" placeholder="********">
+                </div>
+
+              
+
+                <hr>
+                <div class="form-group">
+                    <input class="btn btn-block btn-info col-lg-4" type="submit" value="Login">
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

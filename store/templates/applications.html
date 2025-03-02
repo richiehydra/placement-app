@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% load cart %}
+{% load custom_filter %}
+<div class="container" style="padding-top:100px;">
+   <div class="border rounded">
+       <h1 style="text-align:center;">Your Applications</h1>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr style="font-size:20px">
+                    <th>Sino</th>
+                    <th>Image</th>
+                    <th>Company Name</th>
+                    <th>Date</th>
+                    <th>Cgpa Filter</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for application in applications %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td><img style="height: 80px;" class="rounded-circle" src="{{application.company.image.url}}" alt=""></td>
+                    <td style="font-size:20px">{{application.company.name}}</td>
+                    <td style="font-size:20px">{{application.date}}</td>
+                    <td style="font-size:20px">{{application.cgpa}}</td>
+                   
+                    {% if application.status %}
+                    <td><small class="badge badge-success">Accepted</small></td>
+                    {%else%}
+                    <td><small class="badge badge-warning">Pending</small></td>
+                    {% endif %}
+                </tr>
+
+                {% endfor %}
+               
+            </tbody>
+
+        </table>
+       
+   </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% load cart %}
+{% load custom_filter %}
+<div class="container"  style="padding-top:120px">
+   <div class="border rounded p-4 m-4">
+        <p class="display-4 pl-4 ml-4">Your Applications</p>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr style="font-size:20px">
+                    <th>Si no.</th>
+                    <th>Image</th>
+                    <th>Company</th>
+                    <th>Date</th>
+                   
+                    
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for company in companies %}
+                <tr>
+                    <td style="font-size:20px;">{{forloop.counter}}</td>
+                    <td><img style="height: 80px;" class="rounded-circle" src="{{company.image.url}}" alt=""></td>
+                    <td style="font-size:20px">{{company.name}}</td>
+                    <td > <b style="font-size:20px;">{% now "jS  F" %}</b> </td>
+                    
+                    
+                </tr>
+
+                {% endfor %}
+               
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <th colspan="4"></th>
+                    <th class="" colspan=""style="font-size:20px">Total</th>
+                  
+                </tr>
+            </tfoot>
+        </table>
+        <hr>
+        <div class="m-3 p-3">
+            <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-outline-info border rounded  col-lg-3 float-right">Proceed</a>
+        </div>
+   </div>
+</div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+              Check Out Form
+          </h5>
+          <hr>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="m-2 p-3">
+            <form action="/check-out/" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="" style="font-size:20px">Linkedin Profile(Profile Must Have Resume)</label>
+                  <input type="text" name="profile" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                  
+                </div>
+                <div class="form-group">
+                    <label for=""style="font-size:20px">Phone</label>
+                    <input type="text" name="phone" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                  </div>
+
+                  <input type="submit" class="btn float-right btn-outline-info col-lg-4" value="Confirm">
+            </form>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+{% endblock %}

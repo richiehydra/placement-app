@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load cart %}
+{% load custom_filter %}
+<!-- body -->
+<style>
+    #records
+    {
+        width:50em;
+    }
+    #button
+    {
+       margin-top:40px;
+    }
+   
+    
+</style>
+<!-- header section ends -->
+
+<!-- home section starts  -->
+
+<section class="home" id="home">
+
+    <div class="content">
+        <h3>Dream Big <span> And</span> Grab Big</h3>
+        <p>Many reputed Companies reprsenting diverse sectors visit the campus for placement</p>
+    </div>
+
+</section>
+
+
+
+<!-- home section ends -->
+
+
+<!-- features section starts  -->
+
+<section class="features" id="features">
+
+    <h1 class="heading"> our <span>features</span> </h1>
+
+    <div class="box-container">
+
+        <div class="box">
+            <img src="https://donboscobangalore.education/img/sections/slider/placements1.jpg" alt="">
+            <h3> Career Guidance</h3>
+            <p>We Have a Career Guidance Center to encourage students to be Succesful in thier Future Upcomes</p>
+            <a href="https://bbhegdecollege.com/index.php/page/placements" class="btn">read more</a>
+        </div>
+
+        <div class="box">
+            <img src="https://cgpcareeravenues.in/wp-content/uploads/2021/05/placement-training-course.png" alt="">
+            <h3>Placement Training </h3>
+            <p>We provide the free Tranning for Students of BBHC Kundapura</p>
+            <a href="https://bbhegdecollege.com/index.php/page/placements" class="btn">read more</a>
+        </div>
+
+        <div class="box">
+            <img src="https://mlmtrend.org/blog/b26fd614-f855-4142-a1f4-d2b6f657cb38_15.png" alt="">
+            <h3>Paid Skill Courses </h3>
+            <p>We even provide NPTEL courses for students to enhance thier skills</p>
+            <a href="https://bbhegdecollege.com/index.php/page/placements" class="btn">read more</a>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- features section ends -->
+
+<!-- products section starts  -->
+
+{% load static %}  
+<script type="text/javascript" src="{% static "/js/script.js" %}"></script>
+ 
+
+<section class="products" id="products">
+
+    <h1 class="heading"> our <span>Valued Recruiters </span> </h1>
+
+    <div class="swiper product-slider">
+<div class="new">
+           {% for company in companies %}
+           <div id={{company.id}}>
+            <div class="box" >
+               <img class="companies" src="{{company.image.url}}" alt="company">
+                <h3>{{company.name}}</h3>
+                <div class="price">{{company.cgpa}} CGPA Cutoff </div>
+                <div class="price">{{company.description}} </div>
+                {% if company|is_in_cart:request.session.cart %}
+         
+    							<form action="/#{{company.id}}" class="col-2 " method="post">
+    								{% csrf_token %}
+    								<input hidden type="text" name='company' value='{{company.id}}'>
+    								<input hidden type="text" name='remove' value='True'>
+
+                                    
+    							</form>
+    	
+    							<form action="/#{{company.id}}" class="col-2 " method="post">
+    								{% csrf_token %}
+    								<input hidden type="text" name='company' value='{{company.id}}'>
+    							</form>
+                             
+    				
+                {% else %}
+                <form action="/#{{company.id}}" method="POST" class="btn">
+    							{% csrf_token %}
+    							<input hidden type="text" name='company' value='{{company.id}}'>
+                      <input type="submit" class="float-right btn  form-control"
+    								value="APPLY NOW">
+    						</form>
+    						{% endif %}
+
+                            
+                           
+            </div>
+        </div>
+         {% endfor %}
+      </div>
+      </div>
+</section>
+<section class="categories" id="categories">
+
+    <h1 class="heading"> Companies <span>categories</span> </h1>
+
+    <div class="box-container">
+        {% for category in categories %}
+        <div class="box">
+            <h3>{{category.name}}</h3>
+           
+            <a href="/?category={{category.id}}" class="btn">View Companies</a>
+        </div>
+          {% endfor %}
+
+    </div>
+
+</section>
+
+<section class="footer">
+
+    <div class="box-container">
+
+        <div class="box">
+            <h3> BBHC Placement store  </h3>
+            <p>Kundapura, Udupi</p>
+            <div class="share">
+                <a href="" class="fab fa-facebook-f"></a>
+                <a href="" class="fab fa-twitter"></a>
+                <a href="" class="fab fa-instagram"></a>
+                <a href="" class="fab fa-linkedin"></a>
+            </div>
+        </div>
+
+        <div class="box">
+            <h3>contact info</h3>
+            <a href="#" class="links"> <i class="fas fa-phone"></i> 1234567890 </a>
+   
+            <a href="#" class="links"> <i class="fas fa-envelope"></i>bbhcollege@gmail.com</a>
+            <a href="#" class="links"> <i class="fas fa-map-marker-alt"></i>Kundapura, Udupi </a>
+        </div>
+
+        <div class="box">
+            <h3>quick links</h3>
+            <a href="#home" class="links"> <i class="fas fa-arrow-right"></i> home </a>
+            <a href="#features" class="links"> <i class="fas fa-arrow-right"></i> features </a>
+            <a href="#products" class="links"> <i class="fas fa-arrow-right"></i> Companies </a>
+            <a href="#categories" class="links"> <i class="fas fa-arrow-right"></i> categories </a>
+           
+        </div>
+
+    </div>
+
+    <div class="credit"> Website Maintained By<br><span> Placement Cell-BBHC</span><br><span> </span>
+     </div>
+    
+
+</section>
+{% endblock %}
